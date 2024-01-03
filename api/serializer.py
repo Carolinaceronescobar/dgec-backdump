@@ -3,33 +3,37 @@ from .models import Formulario,Departamento, Sede,Modulos
 
 class FormularioSerializer(serializers.ModelSerializer):
 
-    departamento=serializers.SerializerMethodField()
-    sede=serializers.SerializerMethodField()
-    estado=serializers.SerializerMethodField()
-    revisionDGEC=serializers.SerializerMethodField()
-    revisionDIREST=serializers.SerializerMethodField()
-    revisionFINANZAS=serializers.SerializerMethodField()
+    departamento=serializers.SerializerMethodField(required=False)
+    sede=serializers.SerializerMethodField(required=False)
+    estado=serializers.SerializerMethodField(required=False)
+    revisionDGEC=serializers.SerializerMethodField(required=False)
+    revisionDIREST=serializers.SerializerMethodField(required=False)
+    revisionFINANZAS=serializers.SerializerMethodField(required=False)
 
     class Meta:
         model=Formulario
         fields= '__all__'
 
     def get_departamento(self, inst):
-        print(inst.departamento   )
-        dep=1
-        if inst.departamento:
-            dep=inst.departamento
-        departamento=Departamento.objects.filter(id=dep).first()
-        print (departamento.name)
-        return departamento.name
+        try:
+            dep=1
+            if inst.departamento:
+                dep=inst.departamento
+            departamento=Departamento.objects.filter(id=dep).first()
+            print (departamento.name)
+            return departamento.name
+        except:
+            return ''
 
     def get_sede(self, inst):
-        sede=1
-        if inst.emplazamiento:
-            sede=inst.emplazamiento
-        sede=Sede.objects.filter(id=sede).first()
-        return sede.name
-    
+        try:
+            sede=1
+            if inst.emplazamiento:
+                sede=inst.emplazamiento
+            sede=Sede.objects.filter(id=sede).first()
+            return sede.name
+        except:
+            return ''
     def get_estado(self, inst):
        return "Pendiente"
     
@@ -41,6 +45,11 @@ class FormularioSerializer(serializers.ModelSerializer):
     
     def get_revisionFINANZAS(self, inst):
        return False
+   
+   
+   
+   
+   
 
 class DepartamentoSerializer(serializers.ModelSerializer):
     class Meta:

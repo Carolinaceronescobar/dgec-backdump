@@ -135,7 +135,7 @@ pymysql.install_as_MySQLdb()
 
 _IP_MYSQL = 'localhost'
 _PORT = 3306
-_DB_MYSQL = 'formulario'
+_DB_MYSQL = 'formulario2'
 _USER_MYSQL = 'root'
 _PASS_MYSQL = 'Cuatico1234*'
 
